@@ -8,7 +8,10 @@ class TemperatureServiceClient:
               self.client = mqtt.Client()
               self.client.connect(mqttBroker)
 
-  def sendTemperatureChange(self, id):
-          topic = "temperature/changed"
+  def sendTemperatureDrop(self, id):
+          topic = "temperature/dropped"
+          self.client.publish(topic, id)
+  def sendTemperatureRise(self, id):
+          topic = "temperature/risen"
           self.client.publish(topic, id)
 
