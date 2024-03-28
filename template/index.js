@@ -1,11 +1,13 @@
 import { File } from '@asyncapi/generator-react-sdk';
 
-export default function ({ asyncapi }) {
+// notice that now the template not only gets the instance of parsed AsyncAPI document but also the parameters
+export default function ({ asyncapi, params }) {
+ 
   return (
     <File name="client.py">
       {`import paho.mqtt.client as mqtt
 
-mqttBroker = "test.mosquitto.org"
+mqttBroker = "${asyncapi.servers().get(params.server).url()}"
 
 class TemperatureServiceClient:
     def __init__(self):
